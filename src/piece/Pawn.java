@@ -4,6 +4,8 @@ import Board.Board;
 import ChessSystem.Game;
 import Enum.*;
 import ChessSystem.Position;
+import GUI.InterfaceManager;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -61,7 +63,7 @@ public class Pawn extends Piece {
         }
         
         // 앙파상이 가능한 경우
-        switch (canEnpassant(board)){
+        switch (enpassant = canEnpassant(board)){
             case 1: // 우측으로 앙파상하는 경우
                 moves.add(new Position(position().getRank() + d[0], position().getFile() + 1));
                 break;
@@ -77,7 +79,7 @@ public class Pawn extends Piece {
     @Override
     public void position(Board board, Position pos) {
         super.position(pos);
-        if(pos.getRank() == (this.color() == Color.WHITE ? 0 : 7))
+        if(pos.getRank() == (this.color() == Color.WHITE ? 0 : 7) && !board.isClone())
             promotion(board);
     }
 
@@ -100,32 +102,30 @@ public class Pawn extends Piece {
     public void movedTwoSteps(boolean b){ movedTwoSteps = b;}
 
     private void promotion(Board board) {
-        System.out.print("Choose Promotion: Rook, Knight, Bishop, Queen\n=>");
-        Scanner sc = new Scanner(System.in);
-
+        int select = InterfaceManager.promotion(color());
         Piece promotedPiece = null;
-        do {
-            String piece = sc.nextLine();
-            switch (piece) {
-                case "Rook":
-                    promotedPiece = new Rook(position(), color());
-                    break;
-                case "Knight":
-                    promotedPiece = new Knight(position(), color());
-                    break;
-                case "Bishop":
-                    promotedPiece = new Bishop(position(), color());
-                    break;
-                case "Queen":
-                    promotedPiece = new Queen(position(), color());
-                    break;
-                default:
-                    break;
-            }
-        }while(promotedPiece == null);
+        switch (select) {
+            case 0:
+                promotedPiece = new Queen(position(), color());
+                break;
+            case 1:
+                promotedPiece = new Rook(position(), color());
+                break;
+            case 2:
+                promotedPiece = new Bishop(position(), color());
+                break;
+            case 3:
+                promotedPiece = new Knight(position(), color());
+                break;
+            default:
+                break;
+        }
+
+        board.setPiece(position(), promotedPiece);
     }
 
-
+    public int enpassant(){ return enpassant;}
+    private int enpassant = 0;
     private boolean movedTwoSteps = false;
 }
 

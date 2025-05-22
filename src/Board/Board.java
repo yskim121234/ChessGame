@@ -12,6 +12,7 @@ public class Board implements IBoard {
         // 체크판은 8x8 사이즈이며, 행을 rank, 열을 file 이라고 한다.
         // 각 칸은 Square 라고 부른다.
         squares = new Piece[8][8];
+        isClone = false;
         for(int rank = 0; rank < 8; rank++) {
             for(int file = 0; file < 8; file++) {
                 // Create Pawn
@@ -204,6 +205,7 @@ public class Board implements IBoard {
     @Override// 현재 보드와 똑같은 보드 객체를 반환한다.
     public Board clone() {
         Board clone = new Board();
+        clone.isClone = true;
         for(int rank = 0; rank < 8; rank++) {
             for(int file = 0; file < 8; file++) {
                 clone.squares[rank][file] = this.squares[rank][file] != null ? squares[rank][file].clone() : null;
@@ -245,6 +247,7 @@ public class Board implements IBoard {
                 System.out.println(" " + (8-rank));
         }// for rank
     }
-
+    public boolean isClone() {return isClone;}
+    private boolean isClone;
     private Piece[][] squares;
 }

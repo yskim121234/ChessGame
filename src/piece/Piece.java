@@ -2,8 +2,11 @@ package piece;
 
 import Enum.*;
 import ChessSystem.Position;
+import Enum.Color;
 import Interfaces.IPiece;
 import Board.Board;
+
+import javax.swing.ImageIcon;
 
 public class Piece implements IPiece {
 
@@ -19,6 +22,31 @@ public class Piece implements IPiece {
         this.color = color;
         this.score = score;
         this.type = pieceType;
+    }
+
+    public ImageIcon getImageIcon(){
+        char c = initial.toLowerCase().charAt(0);
+        if(color == Color.WHITE){
+            return switch (c) {
+                case 'p' -> new ImageIcon("asset/white_pawn.png");
+                case 'r' -> new ImageIcon("asset/white_rook.png");
+                case 'n' -> new ImageIcon("asset/white_knight.png");
+                case 'b' -> new ImageIcon("asset/white_bishop.png");
+                case 'q' -> new ImageIcon("asset/white_queen.png");
+                case 'k' -> new ImageIcon("asset/white_king.png");
+                default -> null;
+            };
+        }else{
+            return switch (c) {
+                case 'p' -> new ImageIcon("asset/black_pawn.png");
+                case 'r' -> new ImageIcon("asset/black_rook.png");
+                case 'n' -> new ImageIcon("asset/black_knight.png");
+                case 'b' -> new ImageIcon("asset/black_bishop.png");
+                case 'q' -> new ImageIcon("asset/black_queen.png");
+                case 'k' -> new ImageIcon("asset/black_king.png");
+                default -> null;
+            };
+        }
     }
 
     @Override

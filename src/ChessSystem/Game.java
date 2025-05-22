@@ -14,21 +14,21 @@ public class Game {
         // 이동한 파일에 따라 퀸사이드 킹사이드를 판단해 룩을 올바른 위치로 이동시킨다.
         if(!board.canMove(from, to)) return false;
         Piece fromPiece = board.getPiece(from);
+        int fromFile = from.getFile();
 
         int canEnpassant = 0;
         int canCastle = 0;
 
         // 움직일 기물이 폰인 경우 앙파상 검사
         if(fromPiece.pieceType() == PieceType.Pawn)
-            canEnpassant = ((Pawn)fromPiece).canEnpassant(board);
+            canEnpassant = ((Pawn)fromPiece).enpassant();
         
         if(fromPiece.pieceType() == PieceType.King)
-            canCastle = ((King)fromPiece).canCastling(board);
+            canCastle = ((King)fromPiece).castling();
 
         board.movePiece(from, to);
 
         if(canEnpassant != 0){
-            int fromFile = fromPiece.position().getFile();
             // 폰이 앙파상 가능한 경우
             switch(canEnpassant){
                 case 1: // 앙파상 위치로 이동하는지 확인
@@ -112,7 +112,6 @@ public class Game {
         // 경로를 고려하지 않는 기물
         // 폰-> 바로 붙어서 공격하기 때문에 경로가 없음.
         // 나이트-> 기물을 건너뛰기 때문에 막을 수 없음.
-        //Todo instanceof => pieceType == PieceType.?
         if(!(attacker instanceof Bishop || attacker instanceof Rook || attacker instanceof  Queen)){
             // 공격 기물 위치로 이동 가능한 기물이 없으면 체크메이트이다.
            Piece[] defenders = attackingPieces(board, attacker.position(), reverseColor(color));
@@ -266,12 +265,13 @@ public class Game {
     public static Color whoTurn(){return whiteTurn ? Color.WHITE: Color.BLACK;}
 
     public static void fiftyMoveRuleCount(){fiftyMoveRule++;}
-
     public static void fiftyMoveRuleReset(){fiftyMoveRule = 0;}
 
     public static Piece lastMovedPiece(){
         return lastMovedPiece;
     }
+
+
 
     private static Piece lastMovedPiece = null;
     private static Board board = new Board();
