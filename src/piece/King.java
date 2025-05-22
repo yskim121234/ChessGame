@@ -43,7 +43,15 @@ public class King extends Piece {
             Position newPos = new Position(newRank, newFile);
             Piece piece = board.getPiece(newPos);
             // 킹의 특성: 공격 받는 칸으로 이동할 수 없음
-            if(Game.attackingPieces(newPos, Game.reverseColor(color())).length > 0)
+            
+            // 가상 보드 생성
+            Board newBoard = board.clone();
+            
+            // 이동을 가정한다
+            newBoard.setPiece(position(), null);
+            newBoard.setPiece(newPos, this);
+            // 체크 상태라면 이동 불가능
+            if(Game.isChecked(newBoard, color()))
                 continue;
             
             // 빈 칸인 경우

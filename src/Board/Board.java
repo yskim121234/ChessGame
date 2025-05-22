@@ -1,6 +1,8 @@
 package Board;
 
 import ChessSystem.*;
+import GUI.GameEnd;
+import GUI.InterfaceManager;
 import Interfaces.IBoard;
 import piece.*;
 import Enum.*;
@@ -71,6 +73,7 @@ public class Board implements IBoard {
     public void setPiece(Position pos, Piece piece) {
         squares[pos.getRank()][pos.getFile()] = piece;
         if(piece == null) return;
+        if(this.isClone()) return;
         piece.position(this, pos);
     }
     @Override// from 위치의 기물을 to 위치로 복사하고 from 을 비운다. 유의미한 이동이 이루어지면 true 아니면 false
@@ -108,7 +111,7 @@ public class Board implements IBoard {
             // 체크 되었으면 체크메이트인지 확인
             if(Game.isCheckmate(Game.reverseColor(piece.color()))){
                 // 체크메이트라면 체크메이트 선언 후 게임 종료.
-                System.out.println("===/Checkmate./===");
+                InterfaceManager.gameEnd("Checkmate");
                 System.exit(1);
             } else{
                 // 체크메이트가 아니면 체크 선언
@@ -116,7 +119,7 @@ public class Board implements IBoard {
             }
         else{
             if(Game.isStalemate(Game.reverseColor(piece.color()))){
-                System.out.println("===/Stalemate./===");
+                InterfaceManager.gameEnd("===/Stalemate./===");
                 System.exit(1);
             }
         }
@@ -125,7 +128,7 @@ public class Board implements IBoard {
         else Game.fiftyMoveRuleCount();
 
         if(Game.isDraw(Game.reverseColor(piece.color()))){
-            System.out.println("===/Draw./===");
+            InterfaceManager.gameEnd("===/Draw./===");
             System.exit(1);
         }
 

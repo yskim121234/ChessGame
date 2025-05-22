@@ -26,6 +26,11 @@ public class Frame extends JFrame {
         return menu.showPromotionMenu(this, color);
     }
 
+    public int gameEnd(String message){
+        GameEnd menu = new GameEnd();
+        return menu.showGameEndMessage(this, message);
+    }
+
     public void updateFrame(){
         panel.updateBoard();
         score.updateScore(Game.player(Color.WHITE).score(), Game.player(Color.BLACK).score());

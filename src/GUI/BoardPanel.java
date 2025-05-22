@@ -47,15 +47,15 @@ public class BoardPanel extends JPanel {
                                 select = new int[]{rank_, file_};
                                 step++;
                                 btns[rank_][file_].setBorder(BorderFactory.createLineBorder(Color.RED, 5));
-                                /*
-                                Piece p = board.getPiece(rank_, file_);
+
                                 if(p == null) break;
                                 Position[] legalMoves = p.getLegalMoves(board);
+                                board.showBoard();
                                 for(Position pos : legalMoves){
                                     if(!board.canMove(new Position(rank_, file_),pos)) continue;
                                     btns[pos.getRank()][pos.getFile()].setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
                                 }
-                                */
+
                                 break;
                             case 1:
                                 if(Game.move(new Position(select[0], select[1]),new Position(rank_, file_))) {
@@ -72,7 +72,6 @@ public class BoardPanel extends JPanel {
                 btns[rank][file] = btn;
                 add(btn);
             }
-        board.showBoard();
         updateUI();
     }
 
