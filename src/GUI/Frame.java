@@ -19,11 +19,23 @@ public class Frame extends JFrame {
         score.setLocation(0, 800);
         add(score);
 
+        panel.setVisible(false);
+        panel.setEnabled(false);
+        score.setVisible(false);
+        score.setEnabled(false);
+
     }
 
     public int promotion(Color color){
         PromotionMenu menu = new PromotionMenu();
         return menu.showPromotionMenu(this, color);
+    }
+
+    public void startGame(){
+        panel.setVisible(true);
+        panel.setEnabled(true);
+        score.setVisible(true);
+        score.setEnabled(true);
     }
 
     public int gameEnd(String message){

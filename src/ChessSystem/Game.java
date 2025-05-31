@@ -271,12 +271,16 @@ public class Game {
         return lastMovedPiece;
     }
 
+    public static void setPlayerName(String w, String b){
+        white = new Player(w);
+        black = new Player(b);
+    }
 
 
     private static Piece lastMovedPiece = null;
     private static Board board = new Board();
-    private static Player white = new Player();
-    private static Player black = new Player();
+    private static Player white;
+    private static Player black;
     private static boolean whiteTurn = true;
     private static int fiftyMoveRule = 0;
 }

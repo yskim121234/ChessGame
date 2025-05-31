@@ -111,7 +111,7 @@ public class Board implements IBoard {
             // 체크 되었으면 체크메이트인지 확인
             if(Game.isCheckmate(Game.reverseColor(piece.color()))){
                 // 체크메이트라면 체크메이트 선언 후 게임 종료.
-                InterfaceManager.gameEnd("Checkmate");
+                InterfaceManager.gameEnd("Checkmate, 승자는 "+ Game.player(piece.color()).name());
                 System.exit(1);
             } else{
                 // 체크메이트가 아니면 체크 선언
