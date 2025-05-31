@@ -24,5 +24,5 @@ public class InterfaceManager {
     public static int gameEnd(String message){return frame.gameEnd(message);}
 
     private static Frame frame;
-    private static PlayerRegist register = new PlayerRegist();
+    private static PlayerRegister register = new PlayerRegister();
 }

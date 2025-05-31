@@ -3,12 +3,11 @@ package GUI;
 import javax.swing.*;
 
 import ChessSystem.Game;
-import Enum.Color;
 
 import java.awt.*;
 
-public class PlayerRegist extends JFrame {
-    public PlayerRegist(){
+public class PlayerRegister extends JFrame {
+    public PlayerRegister(){
         setLayout(new GridLayout(2,1));
         p1 = new JPanel();
         p1.setLayout(new FlowLayout());
